@@ -1,60 +1,78 @@
-﻿namespace Productos
+﻿using System;
+using Tarea_29._07;
+
+namespace Productos
 {
-     class program
+    public class Program
     {
-        static void Main(String[] args)
+        static void Main(string[] args)
         {
-            try
+            int[] ids = new int[10];
+            string[] names = new string[10];
+            double[] prices = new double[10];
+            string[] descriptions = new string[10];
+            int stock = 0;
+            int amount = 0;
+
+            TProducto producto = new TProducto(ids, names, prices, descriptions, stock);
+
+            while (true)
             {
-                int option;
-                ShowMenu();
-                Console.Write("Choose a option: ");
-                option = Convert.ToInt32(Console.ReadLine());
-                switch (option)
+                try
                 {
-                    case 1:
-                        {
+                    Console.Clear();
+                    ShowMenu();
+                    Console.Write("Choose an option: ");
+                    int option = Convert.ToInt32(Console.ReadLine());
 
-                        }
-                        break;
-                    case 2:
-                        {
+                    switch (option)
+                    {
+                        case 1:
+                            stock = producto.NewProduct();
+                            break;
 
-                        }
-                        break;
-                    case 3:
-                        {
+                        case 2:
+                            producto.ConsultProduct();
+                            break;
 
-                        }
-                        break;
-                    case 4:
-                        {
+                        case 3:
+                            producto.Sale();
+                            break;
 
-                        }
-                        break;
-                    case 5:
-                        { 
-                            
-                        }break;
-                    case 6:
-                        {
+                        case 4:
+                            stock = producto.NewStock();
+                            break;
+
+                        case 5:
+                            producto.NewPrice();
+                            break;
+
+                        case 6:
+                            producto.ShowResume();
+                            break;
+
+                        case 7:
                             ExitProgram();
-                        }
-                        break;
+                            return;
+
+                        default:
+                            Console.WriteLine("Invalid option. Please try again.");
+                            break;
+                    }
                 }
-            }
-            catch (FormatException MessageError)
-            {
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("Error found: " + ex.Message);
+                }
+                catch (OverflowException ex)
+                {
+                    Console.WriteLine("Error found: " + ex.Message);
+                }
 
-                Console.WriteLine("Error found: " + MessageError);
+                Console.ReadKey();
             }
-            catch (OverflowException MessageError1)
-            {
-                Console.WriteLine("Error foudn: " + MessageError1);
-            }
-
-
         }
+
         static void ShowMenu()
         {
             Console.WriteLine("------------------------------");
@@ -65,15 +83,17 @@
             Console.WriteLine("1. Add product");
             Console.WriteLine("2. Consult product");
             Console.WriteLine("3. Sale");
-            Console.WriteLine("4. Stock");
-            Console.WriteLine("5. Show Resumé");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("4. Update stock");
+            Console.WriteLine("5. New price");
+            Console.WriteLine("6. Show résumé");
+            Console.WriteLine("7. Exit");
         }
+
         static void ExitProgram()
         {
             Console.WriteLine("\nCiao User...");
             Console.WriteLine("ENTER TO EXIT");
-
+            Console.ReadKey();
         }
-    } 
+    }
 }
